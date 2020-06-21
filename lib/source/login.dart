@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bookingapp/source/login.dart';
+import 'package:bookingapp/source/register.dart';
 
-class Register extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _RegisterState createState() => _RegisterState();
+  _LoginState createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +35,20 @@ class _RegisterState extends State<Register> {
             child: Stack(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 90.0, 0.0, 0.0),
                   child: Text(
-                    'Be a member of',
+                      'Welcome to',
                     style: TextStyle(
-                      fontSize: 50.0, fontWeight: FontWeight.bold,
+                      fontSize: 70.0, fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(10.0, 100.0, 0.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 160.0, 0.0, 0.0),
                   child: Text(
                     'TravelCiti',
                     style: TextStyle(
-                      fontSize: 50.0,
+                      fontSize: 70.0,
                       color: Colors.blue[700],
                       fontWeight: FontWeight.bold,
                     ),
@@ -63,40 +63,7 @@ class _RegisterState extends State<Register> {
               children: <Widget>[
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Name',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue[700]),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Mobile No.',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue[700]),
-                    ),
-                  ),
-                  obscureText: true,
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: 'E-Mail',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -122,9 +89,28 @@ class _RegisterState extends State<Register> {
                       borderSide: BorderSide(color: Colors.blue[700]),
                     ),
                   ),
+                  obscureText: true,
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 5.0,
+                ),
+                Container(
+                  alignment: Alignment(1.0, 0.0),
+                padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                  child: InkWell(
+                    child: Text(
+                      'Forgot Password',
+                      style: TextStyle(
+                        color: Colors.blue[700],
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat',
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 40.0,
                 ),
                 Container(
                   height: 40.0,
@@ -137,7 +123,7 @@ class _RegisterState extends State<Register> {
                       onTap: () {},
                       child: Center(
                         child: Text(
-                          'Register',
+                          'Login',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -151,6 +137,42 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                   height: 20.0,
                 ),
+                Container(
+                  height: 40.0,
+                  color: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blue[400],
+                        style: BorderStyle.solid,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.blue[700],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Center(
+                          child: ImageIcon(AssetImage('assets/fb.png')),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Center(
+                          child: Text(
+                            'Login with Gmail',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -161,7 +183,7 @@ class _RegisterState extends State<Register> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Already have an account?',
+                'New to TravelCiti?',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -173,7 +195,7 @@ class _RegisterState extends State<Register> {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  'Login',
+                  'Register',
                   style: TextStyle(
                     color: Colors.blue[700],
                     fontFamily: 'Montserrat',
@@ -182,7 +204,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 onLongPress: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => Register()));
                 },
               )
             ],
