@@ -32,6 +32,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.7
+  provider: ^4.1.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -51,6 +54,7 @@ flutter:
      - images/bali.jpg
      - images/manali.jpg
      - images/ooty.jpg
+     - images/google.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
