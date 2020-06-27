@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bookingapp/source/login.dart';
+import 'package:bookingapp/services/auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -9,10 +10,19 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String name='';
+  String phone='';
+  String email='';
+  String password='';
+  String error='';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      key: _formKey,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -59,9 +69,15 @@ class _RegisterState extends State<Register> {
           ),
           Container(
             padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-            child: Column(
+            child: Form(
+              key: _formKey,
+              child: Column(
               children: <Widget>[
-                TextField(
+                TextFormField(
+                  validator: (val) => val.isEmpty ? 'Enter a name' : null,
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  },
                   decoration: InputDecoration(
                     labelText: 'Name',
                     labelStyle: TextStyle(
@@ -74,10 +90,13 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
+                SizedBox(height: 20.0),
+                TextFormField(
+                  obscureText: true,
+                  validator: (val) => val.length < 11 ? 'Enter a phone number 10 chars long' : null,
+                  onChanged: (val) {
+                    setState(() => phone = val);
+                  },
                   decoration: InputDecoration(
                     labelText: 'Mobile No.',
                     labelStyle: TextStyle(
@@ -89,12 +108,13 @@ class _RegisterState extends State<Register> {
                       borderSide: BorderSide(color: Colors.blue[700]),
                     ),
                   ),
-                  obscureText: true,
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
+                SizedBox(height: 20.0),
+                TextFormField(
+                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  onChanged: (val) {
+                    setState(() => email = val);
+                  },
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
@@ -107,10 +127,13 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
+                SizedBox(height: 20.0),
+                TextFormField(
+                  obscureText: true,
+                  validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+                  onChanged: (val) {
+                    setState(() => password = val);
+                  },
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
@@ -134,7 +157,17 @@ class _RegisterState extends State<Register> {
                     color: Colors.blue[700],
                     elevation: 7.0,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        if(_formKey.currentState.validate()){
+                          dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                          if(result == null) {
+                            setState(() {
+                              error = 'Please supply a valid email';
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                            });
+                          }
+                        }
+                      },
                       child: Center(
                         child: Text(
                           'Register',
@@ -148,15 +181,11 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
+                SizedBox(height: 20.0),
               ],
-            ),
+            )),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
+          SizedBox(height: 15.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -171,7 +200,7 @@ class _RegisterState extends State<Register> {
                 width: 5.0,
               ),
               InkWell(
-                onTap: () {},
+                onTap: navigateToLogin,
                 child: Text(
                   'Login',
                   style: TextStyle(
@@ -181,9 +210,6 @@ class _RegisterState extends State<Register> {
                     decoration: TextDecoration.underline,
                   ),
                 ),
-                onLongPress: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
-                },
               )
             ],
           ),
@@ -191,4 +217,12 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+
+    void navigateToLogin(){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login(), fullscreenDialog: true));
+    }
+
+    void navigateToRegister(){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Register(), fullscreenDialog: true));
+    }
 }
