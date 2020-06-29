@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
                     child: GestureDetector(
                       onTap: () async {
                         if(_formKey.currentState.validate()){
-                          dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                          dynamic result = await _auth.registerWithEmailAndPassword(email.trim(), password.trim());
                           if(result == null) {
                             setState(() {
                               error = 'Please supply a valid email';
