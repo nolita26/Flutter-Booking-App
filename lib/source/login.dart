@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
                     child: GestureDetector(
                     onTap: () async {
                       if(_formKey.currentState.validate()){
-                        dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                        dynamic result = await _auth.signInWithEmailAndPassword(email.trim(), password.trim());
                         if(result == null) {
                           setState(() {
                             error = 'Could not sign in with those credentials';
